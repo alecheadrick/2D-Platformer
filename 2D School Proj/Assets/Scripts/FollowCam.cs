@@ -6,34 +6,36 @@ public class FollowCam : MonoBehaviour {
 
 	#region Variables
 	public float maxSpeed;
-	public Vector2 topLeft;
-	public Vector2 bottomRight;
+	public float xMax;
+	public float yMax;
+	public float xMin;
+	public float yMin;
+	public float smoothSpeed = 0.125f;
 
-	private GameObject target;
+
+	private Transform target;
 	#endregion
 
 	#region Methods
 	void Start()
 	{
-		target = GameObject.FindWithTag("Player");
+		target = GameObject.FindWithTag("Player").transform;
 
-		Vector3 newPos = target.transform.position;
-		newPos.z = transform.position.z;
-		transform.position = newPos;
 	}
 
 	// Update is called once per frame
-	void Update()
+	void LateUpdate()
 	{
-		Vector2 newPos = Vector2.MoveTowards(
-			transform.position,
-			target.transform.position,
-			maxSpeed * Time.deltaTime
-		);
+		
+		
+		//Vector3 desiredPosition = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax),transform.position.z);
+		//Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
+		transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax), transform.position.z); ;
+
+
 
 		//how do we limit the camera between topLeft & bottomRight?
 
-		transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
 	}
 	#endregion
 }

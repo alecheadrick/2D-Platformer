@@ -834,8 +834,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 0
-  topLeft: {x: -7, y: 2}
-  bottomRight: {x: 0, y: 0}
+  xMax: 0.72
+  yMax: 6.52
+  xMin: -0.72
+  yMin: 2.52
+  smoothSpeed: 0.75
 --- !u!1001 &1192423982
 Prefab:
   m_ObjectHideFlags: 0
@@ -1630,6 +1633,8 @@ MonoBehaviour:
   speed: 200
   jumpForce: 400
   flip: 1
+  fallMultiplyer: 2.5
+  lowJumpMultiplyer: 2
 --- !u!4 &2023969474 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4478632380617214, guid: 7142bdc090ee8f04f88210fc81c71e80,
