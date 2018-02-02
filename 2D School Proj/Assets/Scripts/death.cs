@@ -11,7 +11,15 @@ public class death : MonoBehaviour {
 	#region Methods
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		Object.Destroy(collision.gameObject);
+		if (collision.gameObject.tag == "Player")
+		{
+			Debug.Log(gameObject.name + "killed Player");
+			GameManager.Death();
+		}
+		else
+		{
+			Object.Destroy(collision.gameObject);
+		}
 	}
 	#endregion
 }

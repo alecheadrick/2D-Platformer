@@ -7,10 +7,11 @@ public class FollowCam : MonoBehaviour {
 	#region Variables
 	public float maxSpeed;
 	public float xMax;
-	public float yMax;
 	public float xMin;
+	public float yMax;
 	public float yMin;
 	public float smoothSpeed = 0.125f;
+	public float maxShake = 1.0f;
 
 
 	private Transform target;
@@ -22,20 +23,32 @@ public class FollowCam : MonoBehaviour {
 		target = GameObject.FindWithTag("Player").transform;
 
 	}
-
-	// Update is called once per frame
-	void LateUpdate()
+	void Update()
 	{
-		
-		
-		//Vector3 desiredPosition = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax),transform.position.z);
-		//Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
-		transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax), transform.position.z); ;
+		if (target == null)
+		{
+			Shake();
+			return;
+		}
+	}
 
+		// Update is called once per frame
+		void LateUpdate()
+	{
 
+		if (target != null)
+		{
+			//Vector3 desiredPosition = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax),transform.position.z);
+			//Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
+			transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax), transform.position.z);
+			//transform.LookAt(target);
 
-		//how do we limit the camera between topLeft & bottomRight?
+		}
+	}
 
+	public void Shake()
+	{
+		transform.position += new Vector3(Random.Range(-maxShake, maxShake),Random.Range(-maxShake, maxShake),0);
 	}
 	#endregion
 }

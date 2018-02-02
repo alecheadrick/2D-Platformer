@@ -68,8 +68,9 @@ GameObject:
   - component: {fileID: 114555232922168750}
   - component: {fileID: 114188096281583640}
   - component: {fileID: 60667302941403628}
+  - component: {fileID: 95870659839423276}
   m_Layer: 0
-  m_Name: Bat_0
+  m_Name: Bat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +109,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1386131512969134}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7, y: 6, z: 0}
+  m_LocalPosition: {x: -7, y: 6.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4739459809434344}
@@ -162,6 +163,23 @@ PolygonCollider2D:
       - {x: 0.125, y: -0.4375}
       - {x: 0.5, y: -0.0625}
       - {x: 0.5, y: 0.1875}
+--- !u!95 &95870659839423276
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1608345548415442}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6ebbdf0d9d0ea824fa1ba026bf69eb54, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114188096281583640
 MonoBehaviour:
   m_ObjectHideFlags: 1

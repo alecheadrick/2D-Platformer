@@ -12,18 +12,34 @@ public class playerController : MonoBehaviour {
 	public float lowJumpMultiplyer = 2f;
 
 	private Rigidbody2D rb;
+	private Animator anim;
+	private int moveHash;
+	private Vector3 spawnPoint;
+
 #endregion
 
 #region Methods
 	void Start () 
 	{
 		rb = GetComponent<Rigidbody2D>();
+		anim = GetComponent<Animator>();
+		moveHash = Animator.StringToHash("Moving");
+		spawnPoint = transform.position;
 	}
-	
 
-	void Update () 
+
+	void Update()
 	{
 		float x = Input.GetAxis("Horizontal");
+
+		if (Mathf.Abs(x) < .05)
+		{
+			anim.SetBool(moveHash, false);
+		}
+		else {
+			anim.SetBool(moveHash, true);
+		}
+
 		rb.velocity = new Vector2(x * speed * Time.deltaTime, rb.velocity.y);
 
 		if (x < 0)
@@ -49,6 +65,10 @@ public class playerController : MonoBehaviour {
 		else if (rb.velocity.y > 0 && !Input.GetButton("Jump")) {
 			rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplyer - 1) * Time.deltaTime;
 		}
+	}
+
+	public void Respawn() {
+		transform.position = spawnPoint;
 	}
 
 	private bool Grounded() {
