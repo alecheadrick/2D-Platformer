@@ -11,6 +11,8 @@ public class playerController : MonoBehaviour {
 	public int flip = -1; //-1 means sprite faces right
 	public float fallMultiplyer = 2.5f;
 	public float lowJumpMultiplyer = 2f;
+	public GameObject dinoGrant;
+	public Vector3 spawnOffset;
 
 	private Rigidbody2D rb;
 	private Animator anim;
@@ -35,6 +37,10 @@ public class playerController : MonoBehaviour {
 
 	void Update()
 	{
+		if (dinoGrant != null)
+		{
+			dinoGrant.transform.position = transform.position+spawnOffset;
+		}
 		if (GameManager.state != GameManager.GameState.playing) {
 			anim.SetBool(flyHash, false);
 			anim.SetBool(moveHash, false);
