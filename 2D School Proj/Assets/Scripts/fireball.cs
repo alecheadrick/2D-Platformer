@@ -35,7 +35,7 @@ public class fireball : MonoBehaviour {
 		}
 		GameObject newshot = Object.Instantiate(projectile, shotPoint.transform.position, shotPoint.transform.rotation);
 		sR = newshot.GetComponent<SpriteRenderer>();
-		newshot.GetComponent<Rigidbody2D>().AddForce(shotPoint.transform.position * shotForce, ForceMode2D.Force);
+		newshot.GetComponent<Rigidbody2D>().AddForce(shotForce * transform.localScale.x * Vector2.right, ForceMode2D.Force);
 		if (transform.localScale.x == -1)
 		{
 			Debug.Log("Facing Left");
