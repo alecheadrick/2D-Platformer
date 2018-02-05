@@ -34,6 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4513987148158284}
+  - component: {fileID: 114509109026752558}
   m_Layer: 9
   m_Name: Bat
   m_TagString: Untagged
@@ -69,9 +70,10 @@ GameObject:
   - component: {fileID: 114188096281583640}
   - component: {fileID: 60667302941403628}
   - component: {fileID: 95870659839423276}
+  - component: {fileID: 114241778403797766}
   m_Layer: 0
   m_Name: Bat
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -191,6 +193,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295b690c0a44fd04694b90e0f95568bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114241778403797766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1608345548415442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73197f050c62d184584cfd2c68879573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 50
+--- !u!114 &114509109026752558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1386131512969134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73197f050c62d184584cfd2c68879573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 50
 --- !u!114 &114555232922168750
 MonoBehaviour:
   m_ObjectHideFlags: 1

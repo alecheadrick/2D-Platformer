@@ -7,12 +7,14 @@ public class fireball : MonoBehaviour {
 	#region Variables
 	public GameObject projectile;
 	public GameObject shotPoint;
+	public GameObject player;
 	public float shotForce = 8.0f;
 	public float shotTTL = 5.0f;
 	public float rechargeTime = 2.2f;
 	public AudioClip launchNoise;
 
 	private float lastShotTime;
+	private SpriteRenderer sR;
 	#endregion
 
 	#region Methods
@@ -31,16 +33,23 @@ public class fireball : MonoBehaviour {
 		{
 			AudioSource.PlayClipAtPoint(launchNoise, shotPoint.transform.position, 1.0f);
 		}
+		GameObject newshot = Object.Instantiate(projectile, shotPoint.transform.position, shotPoint.transform.rotation);
+		sR = newshot.GetComponent<SpriteRenderer>();
+		newshot.GetComponent<Rigidbody2D>().AddForce(shotPoint.transform.position * shotForce, ForceMode2D.Force);
+		if (transform.localScale.x == -1)
+		{
+			Debug.Log("Facing Left");
+			sR.flipX = true;
+		}
+		else if (transform.localScale.x == 1)
+		{
+			Debug.Log("Facing Right");
+			sR.flipX = false;
+		}
 
-		GameObject newshot = Object.Instantiate(projectile,
-			shotPoint.transform.position,
-			this.transform.rotation);
-
-		newshot.GetComponent<Rigidbody2D>().AddForce(transform.forward * shotForce, ForceMode2D.Impulse);
-
+		
 
 		Object.Destroy(newshot, shotTTL);
 	}
 	#endregion
 }
-//need to find out why shot is just falling
