@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class playerController : MonoBehaviour {
 
@@ -14,6 +15,8 @@ public class playerController : MonoBehaviour {
 	private Rigidbody2D rb;
 	private Animator anim;
 	private int moveHash;
+	private int idleHash;
+	private int flyHash;
 	private Vector3 spawnPoint;
 
 #endregion
@@ -24,19 +27,44 @@ public class playerController : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
 		moveHash = Animator.StringToHash("Moving");
+		flyHash = Animator.StringToHash("flying");
+		idleHash = Animator.StringToHash("idle");
 		spawnPoint = transform.position;
 	}
 
 
 	void Update()
 	{
-		float x = Input.GetAxis("Horizontal");
+		if (GameManager.state != GameManager.GameState.playing) {
+			anim.SetBool(flyHash, false);
+			anim.SetBool(moveHash, false);
+			anim.SetBool(idleHash, false);
+			return;
+		}
+		
+		//float x = CrossPlatformInputManager.GetAxis("Horizontal"); 
+		if (rb.velocity.y != 0)
+		{
+			//Debug.Log("Should be flying");
+			anim.SetBool(flyHash, true);
+			//anim.SetBool(moveHash, false);
+			//anim.SetBool(idleHash, false);
+		}
+		else {
+		anim.SetBool(flyHash, false);
+		//anim.SetBool(idleHash, false);
+		//anim.SetBool(moveHash, false);
+		//return;
 
+		}
+		float x = Input.GetAxis("Horizontal");
 		if (Mathf.Abs(x) < .05)
 		{
+			anim.SetBool(idleHash, true);
 			anim.SetBool(moveHash, false);
 		}
 		else {
+			anim.SetBool(idleHash, false);
 			anim.SetBool(moveHash, true);
 		}
 
@@ -55,7 +83,10 @@ public class playerController : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown(KeyCode.Space) && Grounded()) {
-			rb.AddForce(new Vector2(0, jumpForce));
+			//if (CrossPlatformInputManager.GetButtonDown("Jump") && Grounded()) {
+				
+				anim.SetBool(flyHash, true);
+				rb.AddForce(new Vector2(0, jumpForce));
 		}
 
 		if (rb.velocity.y < 0)
@@ -72,12 +103,17 @@ public class playerController : MonoBehaviour {
 	}
 
 	private bool Grounded() {
-		RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, .6f, 1 << LayerMask.NameToLayer("midground"));
+		RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1f, 1 << LayerMask.NameToLayer("midground"));
 
 		if (hit.collider != null)
 		{
+			Debug.Log("grounded");
 			return true;
-		} return false;
+		}
+		else {
+			Debug.Log("not grounded");
+		}
+		return false;
 	}
 #endregion
 }

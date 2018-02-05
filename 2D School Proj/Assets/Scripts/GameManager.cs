@@ -2,68 +2,113 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
 	#region Variables
+	public enum GameState { menu, playing, paused, gameover };
+
 	public static int level = 1;
 	public static int score = 0;
 	public static int lives = 3;
+	public static GameState state;
+	public static GameObject player;
 
+	//UI elements
 	public Text scoreText;
+	public Text levelText;
+	public GameObject pausedTextObject;
+	public GameObject gameoverTextObject;
 	public Image[] lifeIcons;
-#endregion
+	#endregion
 
 	#region Methods
-	void Start () 
+	void Start()
 	{
-		
-	}
-	
+		state = GameState.playing;
 
-	void Update () 
+		player = GameObject.FindGameObjectWithTag("Player");
+	}
+
+	// Update is called once per frame
+	void Update()
 	{
-		//display level in ui
+		levelText.text = "Level " + level;
 		scoreText.text = "" + score;
-		//display lives in ui
-		for (int i = 0; i < lifeIcons.Length; i++) {
+
+		for (int i = 0; i < lifeIcons.Length; i++)
+		{
 			if (i < lives - 1)
 			{
 				lifeIcons[i].enabled = true;
 			}
-			else {
+			else
+			{
 				lifeIcons[i].enabled = false;
 			}
 		}
-		//check if time has expired
+
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			if (state == GameState.playing)
+			{
+				Time.timeScale = 0;
+				state = GameState.paused;
+			}
+			else if (state == GameState.paused)
+			{
+				Time.timeScale = 1;
+				state = GameState.playing;
+			}
+		}
+
+		if (state == GameState.playing)
+		{
+			pausedTextObject.SetActive(false);
+			gameoverTextObject.SetActive(false);
+
+		}
+		else if (state == GameState.paused)
+		{
+			pausedTextObject.SetActive(true);
+		}
+		else if (state == GameState.gameover)
+		{
+			gameoverTextObject.SetActive(true);
+		}
+
+		//check if time has expired?
 	}
 
-	public static void AddScore(int points) {
+	public static void AddScore(int points)
+	{
 		score += points;
 	}
 
-	public static void Death() {
-		//play the player death animation?
+	public static void Death()
+	{
+		//play the player death animation?
 
-		//screen shake
-
-
-		//decrement lives
+		//decrement lives
 		lives--;
 
-		//if lives == 0 
+		//if lives == 0 
 		if (lives <= 0)
 		{
-			//change state to game over
+			state = GameState.gameover;
 		}
 		else
 		{
-			GameObject player = GameObject.FindGameObjectWithTag("Player");
-			//move player at starting point
+			//GameObject player = GameObject.FindGameObjectWithTag("Player");
+			//move player at starting point
 			player.SendMessage("Respawn");
-			//move the camera immediately to player position
-			Camera.main.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, Camera.main.transform.position.z);
+			//move the camera immediately to player position
+			Camera.main.transform.position = new Vector3(player.transform.position.x,player.transform.position.y,Camera.main.transform.position.z);
 		}
+
+		//screen shake
 		FollowCam cam = Camera.main.GetComponent<FollowCam>();
 		if (cam != null)
 		{
@@ -71,8 +116,10 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public static void NextLevel() {
-
+	public static void NextLevel()
+	{
+		level++;
+		SceneManager.LoadScene("Level " + level);
 	}
-#endregion
+	#endregion
 }

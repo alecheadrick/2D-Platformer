@@ -12,7 +12,8 @@ public class FollowCam : MonoBehaviour {
 	public float yMin;
 	public float smoothSpeed = 0.125f;
 	public float maxShake = 1.0f;
-
+	public GameObject background;
+	public float bgScrollPercent = .2f;
 
 	private Transform target;
 	#endregion
@@ -25,25 +26,32 @@ public class FollowCam : MonoBehaviour {
 	}
 	void Update()
 	{
+		
+	}
+
+	// Update is called once per frame
+	void LateUpdate()
+	{
+		
 		if (target == null)
 		{
 			Shake();
-			return;
 		}
-	}
-
-		// Update is called once per frame
-		void LateUpdate()
-	{
-
-		if (target != null)
+		else
 		{
-			//Vector3 desiredPosition = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax),transform.position.z);
-			//Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
-			transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax), transform.position.z);
-			//transform.LookAt(target);
 
+			if (target != null)
+			{
+				//Vector3 desiredPosition = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax),transform.position.z);
+				//Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
+				transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax), transform.position.z);
+				//transform.LookAt(target);
+
+			}
 		}
+		Vector2 oldpos = transform.position;
+		Vector3 offset = (Vector2)transform.position - oldpos;
+		background.transform.Translate(offset * (1 - bgScrollPercent));
 	}
 
 	public void Shake()
