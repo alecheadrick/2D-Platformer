@@ -5,7 +5,7 @@ using UnityEngine;
 public class death : MonoBehaviour {
 
 	#region Variables
-
+	public AudioClip playerHit;
 	#endregion
 
 	#region Methods
@@ -15,11 +15,15 @@ public class death : MonoBehaviour {
 		{
 			Debug.Log(gameObject.name + "killed Player");
 			GameManager.Death();
+			if (playerHit != null)
+			{
+				AudioSource.PlayClipAtPoint(playerHit, transform.position, 3f);
+			}
 		}
-		else
-		{
-			Object.Destroy(collision.gameObject);
-		}
+		//else
+		//{
+		//	Object.Destroy(collision.gameObject);
+		//}
 	}
 	#endregion
 }

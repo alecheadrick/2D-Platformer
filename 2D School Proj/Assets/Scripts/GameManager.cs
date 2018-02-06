@@ -15,10 +15,15 @@ public class GameManager : MonoBehaviour
 	public static int lives = 3;
 	public static GameState state;
 	public static GameObject player;
+	public AudioClip GoNoise;
+	public bool GoNoisePlayed = false;
 
 	//UI elements
 	public Text scoreText;
+	//public Text levelCompleteText;
 	public Text levelText;
+	public Text levelcompletedText;
+	public Text levelcompletedscore;
 	public GameObject pausedTextObject;
 	public GameObject gameoverTextObject;
 	public Image[] lifeIcons;
@@ -29,14 +34,16 @@ public class GameManager : MonoBehaviour
 	{
 		state = GameState.playing;
 
-		player = GameObject.FindGameObjectWithTag("Player");
+		//player = GameObject.FindGameObjectWithTag("Player");
 	}
-
-	// Update is called once per frame
 	void Update()
 	{
+		player = GameObject.FindGameObjectWithTag("Player");
+		levelcompletedText.text = "Level " + level + " Completed!";
 		levelText.text = "Level " + level;
 		scoreText.text = "" + score;
+		levelcompletedscore.text = "Total Score: " + score;
+
 
 		for (int i = 0; i < lifeIcons.Length; i++)
 		{
@@ -74,12 +81,15 @@ public class GameManager : MonoBehaviour
 		{
 			pausedTextObject.SetActive(true);
 		}
-		else if (state == GameState.gameover)
+		else if (state == GameState.gameover && GoNoisePlayed == false)
 		{
 			gameoverTextObject.SetActive(true);
+			if (GoNoise != null)
+			{
+				AudioSource.PlayClipAtPoint(GoNoise, transform.position, 3f);
+				GoNoisePlayed = true;
+			}
 		}
-
-		//check if time has expired?
 	}
 
 	public static void AddScore(int points)
@@ -89,8 +99,6 @@ public class GameManager : MonoBehaviour
 
 	public static void Death()
 	{
-		//play the player death animation?
-
 		//decrement lives
 		lives--;
 
@@ -101,8 +109,6 @@ public class GameManager : MonoBehaviour
 		}
 		else
 		{
-			//GameObject player = GameObject.FindGameObjectWithTag("Player");
-			//move player at starting point
 			player.SendMessage("Respawn");
 			//move the camera immediately to player position
 			Camera.main.transform.position = new Vector3(player.transform.position.x,player.transform.position.y,Camera.main.transform.position.z);

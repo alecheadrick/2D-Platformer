@@ -43,8 +43,6 @@ public class fireball : MonoBehaviour {
 		{
 			shotPoint.SetActive(false);
 			crouchShotPoint.SetActive(true);
-			//GameObject newshot = Object.Instantiate(projectile, crouchShotPoint.transform.position, crouchShotPoint.transform.rotation);
-			//newshot.GetComponent<Rigidbody2D>().AddForce(shotForce * transform.localScale.x * Vector2.right, ForceMode2D.Force);
 			anim.SetBool(crouchHash, true);
 			anim.SetBool(flyHash, false);
 			anim.SetBool(moveHash, false);
@@ -52,6 +50,7 @@ public class fireball : MonoBehaviour {
 			crouching = true;
 		}
 		else {
+			anim.SetBool(crouchHash, false);
 			shotPoint.SetActive(true);
 			crouchShotPoint.SetActive(false);
 			crouching = false;
@@ -66,19 +65,17 @@ public class fireball : MonoBehaviour {
 
 			if (launchNoise != null)
 			{
-				AudioSource.PlayClipAtPoint(launchNoise, crouchShotPoint.transform.position, 1.0f);
+				AudioSource.PlayClipAtPoint(launchNoise, crouchShotPoint.transform.position, 3f);
 			}
 			GameObject newshot = Object.Instantiate(projectile, crouchShotPoint.transform.position, crouchShotPoint.transform.rotation);
 			sR = newshot.GetComponent<SpriteRenderer>();
 			newshot.GetComponent<Rigidbody2D>().AddForce(shotForce * transform.localScale.x * Vector2.right, ForceMode2D.Force);
 			if (transform.localScale.x == -1)
 			{
-				Debug.Log("Facing Left");
 				sR.flipX = true;
 			}
 			else if (transform.localScale.x == 1)
 			{
-				Debug.Log("Facing Right");
 				sR.flipX = false;
 			}
 
@@ -91,19 +88,19 @@ public class fireball : MonoBehaviour {
 
 			if (launchNoise != null)
 			{
-				AudioSource.PlayClipAtPoint(launchNoise, shotPoint.transform.position, 1.0f);
+				AudioSource.PlayClipAtPoint(launchNoise, shotPoint.transform.position, 3f);
 			}
 			GameObject newshot = Object.Instantiate(projectile, shotPoint.transform.position, shotPoint.transform.rotation);
 			sR = newshot.GetComponent<SpriteRenderer>();
 			newshot.GetComponent<Rigidbody2D>().AddForce(shotForce * transform.localScale.x * Vector2.right, ForceMode2D.Force);
 			if (transform.localScale.x == -1)
 			{
-				Debug.Log("Facing Left");
+				//Debug.Log("Facing Left");
 				sR.flipX = true;
 			}
 			else if (transform.localScale.x == 1)
 			{
-				Debug.Log("Facing Right");
+				//Debug.Log("Facing Right");
 				sR.flipX = false;
 			}
 

@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemyHealth : MonoBehaviour {
+public class enemyHealth : MonoBehaviour
+{
 
 	#region Variables
 	public float health = 50f;
 	#endregion
 
 	#region Methods
-	public void TakeDamage(float amount) {
+	public void TakeDamage(float amount)
+	{
 		health -= amount;
-		if (health <= 0) {
+		if (health <= 0)
+		{
 			Die();
 		}
 	}
-	void Die() {
+	void Die()
+	{
 		Destroy(gameObject);
 	}
-#endregion
+	#endregion
 }

@@ -87,6 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 20
+  CoinCollect: {fileID: 8300000, guid: 865d3c4663b6eab428995c81f15ec29a, type: 3}
 --- !u!212 &212647522940676568
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -9,7 +9,6 @@ public class playerSwitch : MonoBehaviour {
 	public GameObject dinoGrant;
 	public bool doneWaiting;
 	private Animator anim;
-	private int idleHash;
 	private int hatchHash;
 	#endregion
 
@@ -18,7 +17,6 @@ public class playerSwitch : MonoBehaviour {
 	{
 		anim = GetComponent<Animator>();
 		hatchHash = Animator.StringToHash("hatch");
-		idleHash = Animator.StringToHash("idle");
 		doneWaiting = true;
 	}
 
@@ -49,4 +47,3 @@ public class playerSwitch : MonoBehaviour {
 	}
 	#endregion
 }
-//(anim.GetCurrentAnimatorStateInfo(0).IsName("bash"))

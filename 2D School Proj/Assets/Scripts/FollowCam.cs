@@ -19,17 +19,10 @@ public class FollowCam : MonoBehaviour {
 	#endregion
 
 	#region Methods
-	void Start()
+	private void Update()
 	{
 		target = GameObject.FindWithTag("Player").transform;
-
 	}
-	void Update()
-	{
-		
-	}
-
-	// Update is called once per frame
 	void LateUpdate()
 	{
 		
@@ -42,16 +35,15 @@ public class FollowCam : MonoBehaviour {
 
 			if (target != null)
 			{
-				//Vector3 desiredPosition = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax),transform.position.z);
-				//Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
 				transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax), transform.position.z);
-				//transform.LookAt(target);
-
 			}
 		}
-		Vector2 oldpos = transform.position;
-		Vector3 offset = (Vector2)transform.position - oldpos;
-		background.transform.Translate(offset * (1 - bgScrollPercent));
+		//Vector2 oldpos = transform.position;
+		//Vector3 offset = (Vector2)transform.position - oldpos;
+		//if (background != null)
+		//{
+		//	background.transform.Translate(offset * (1 - bgScrollPercent));
+		//}
 	}
 
 	public void Shake()

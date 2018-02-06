@@ -122,6 +122,9 @@ MonoBehaviour:
   flip: 1
   fallMultiplyer: 2.5
   lowJumpMultiplyer: 2
+  dinoGrant: {fileID: 1449240433586556, guid: 8739b686e3b535b498332ab0767e0477, type: 2}
+  spawnOffset: {x: 0, y: 0, z: 0}
+  jumpNoise: {fileID: 8300000, guid: 2651d17427444aa47b71667806428c3e, type: 3}
 --- !u!212 &212404332816771844
 SpriteRenderer:
   m_ObjectHideFlags: 1

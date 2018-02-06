@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1449240433586556}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.419, z: 0}
+  m_LocalPosition: {x: -0.3135628, y: 1.9028065, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4591014869047784}
@@ -183,7 +183,7 @@ MonoBehaviour:
   shotForce: 400
   shotTTL: 2
   rechargeTime: 1
-  launchNoise: {fileID: 0}
+  launchNoise: {fileID: 8300000, guid: 128b8757e2453a54cade1c2dc804195f, type: 3}
   crouching: 0
 --- !u!114 &114453657480432682
 MonoBehaviour:
@@ -201,6 +201,9 @@ MonoBehaviour:
   flip: 1
   fallMultiplyer: 2.5
   lowJumpMultiplyer: 2
+  dinoGrant: {fileID: 0}
+  spawnOffset: {x: 0, y: 0, z: 0}
+  jumpNoise: {fileID: 8300000, guid: 2651d17427444aa47b71667806428c3e, type: 3}
 --- !u!212 &212194651587025536
 SpriteRenderer:
   m_ObjectHideFlags: 1

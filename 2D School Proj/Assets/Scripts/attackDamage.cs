@@ -15,6 +15,7 @@ public class attackDamage : MonoBehaviour {
 		{
 			enemyHealth EnemyHealth = collision.transform.GetComponent<enemyHealth>();
 			EnemyHealth.TakeDamage(damage);
+			Destroy(gameObject);
 		}
 	}
 		#endregion

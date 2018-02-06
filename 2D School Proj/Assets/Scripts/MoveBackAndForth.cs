@@ -32,8 +32,11 @@ public class MoveBackAndForth : MonoBehaviour {
 
 	void Flip()
 	{
-		gameObject.GetComponent<SpriteRenderer>().flipX =
-		!gameObject.GetComponent<SpriteRenderer>().flipX;
+		if (gameObject.GetComponent<SpriteRenderer>() != null)
+		{
+			gameObject.GetComponent<SpriteRenderer>().flipX =
+			!gameObject.GetComponent<SpriteRenderer>().flipX;
+		}
 	}
 	#endregion
 }

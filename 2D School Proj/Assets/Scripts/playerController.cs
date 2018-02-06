@@ -13,6 +13,7 @@ public class playerController : MonoBehaviour {
 	public float lowJumpMultiplyer = 2f;
 	public GameObject dinoGrant;
 	public Vector3 spawnOffset;
+	public AudioClip jumpNoise;
 
 	private Rigidbody2D rb;
 	private Animator anim;
@@ -47,21 +48,12 @@ public class playerController : MonoBehaviour {
 			anim.SetBool(idleHash, false);
 			return;
 		}
-		
-		//float x = CrossPlatformInputManager.GetAxis("Horizontal"); 
 		if (rb.velocity.y != 0)
 		{
-			//Debug.Log("Should be flying");
 			anim.SetBool(flyHash, true);
-			//anim.SetBool(moveHash, false);
-			//anim.SetBool(idleHash, false);
 		}
 		else {
 		anim.SetBool(flyHash, false);
-		//anim.SetBool(idleHash, false);
-		//anim.SetBool(moveHash, false);
-		//return;
-
 		}
 		float x = Input.GetAxis("Horizontal");
 		if (Mathf.Abs(x) < .05)
@@ -88,11 +80,14 @@ public class playerController : MonoBehaviour {
 			transform.localScale = scale;
 		}
 
-		if (Input.GetKeyDown(KeyCode.Space) && Grounded()) {
-			//if (CrossPlatformInputManager.GetButtonDown("Jump") && Grounded()) {
-				
-				anim.SetBool(flyHash, true);
-				rb.AddForce(new Vector2(0, jumpForce));
+		if (Input.GetKeyDown(KeyCode.Space) && Grounded())
+		{
+			if (jumpNoise != null)
+			{
+				AudioSource.PlayClipAtPoint(jumpNoise, transform.position, 3f);
+			}
+			anim.SetBool(flyHash, true);
+			rb.AddForce(new Vector2(0, jumpForce));
 		}
 
 		if (rb.velocity.y < 0)
